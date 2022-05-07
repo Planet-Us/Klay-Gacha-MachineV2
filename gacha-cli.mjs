@@ -21,63 +21,6 @@ const gachaABI = contractData.gachaABI;
 
 program.version('0.0.2');
 
-program.command('verify')
-.requiredOption(
-  '-n, --network <string>',
-  'JSON file with gacha machine settings',
-)
-.action(async (options) => {
-  let ret;
-  let rpcURL;
-  const configBuffer = fs.readFileSync(CONFIG_PATH);
-  const configJson = configBuffer.toString();
-  const configData = JSON.parse(configJson);
-  let caver;
-  let contract;
-  if(options.network == 'baobab'){
-    rpcURL = contractData.baobabRPCURL;
-    caver = new Caver(rpcURL);
-    gachaAddress = contractData.gachaAddressBaobab;
-    contract = await caver.contract.create(gachaABI, gachaAddress);
-  }else if(options.network == 'mainnet'){
-    rpcURL = contractData.mainnetRPCURL;
-    caver = new Caver(rpcURL);
-    contract = await caver.contract.create(gachaABI, gachaAddress);
-  }else{
-    throw new Error(
-      'The Network name is wrong. 네트워크명은 baobab이나 mainnet으로 입력 바랍니다.',
-    );
-  }
-
-  const minterAddress = configData.TreasuryAccount;
-  const minterPrivateKey = configData.PrivateKey;
-  const mintNum = configData.NumberOfNFT;
-  ret = await caver.klay.accounts.createWithAccountKey(minterAddress, minterPrivateKey);
-  ret = caver.klay.accounts.wallet.add(ret);
-  ret = caver.klay.accounts.wallet.getAccount(0);
-  const cacheBuffer = fs.readFileSync(CACHE_PATH);
-  const cacheJSON = cacheBuffer.toString();
-  const cacheData = JSON.parse(cacheJSON);
-  let flag = true;
-  for(var i = 0;i<cacheData.items.length;i++){
-    ret = await contract.methods.getUploaded(minterAddress,i, cacheData.items[i].link).call();
-    if(ret.toString() == "true"){
-        console.log("Uploaded number " + i + ": on chain");
-        cacheData.items[i].onChain = "true";
-    }else{
-        console.log("Uploaded number " + i + ": it's NOT on chain");
-        cacheData.items[i].onChain = "false";
-        flag = false;
-    }
-  }  
-  if(!flag){
-      console.log("Some of uploaded are NOT on chain. Please upload again.");
-  }else{
-      console.log("All uploaded are successfully on chain.");
-  }
-  fs.writeFileSync(CACHE_PATH, JSON.stringify(cacheData));  
-
-});
 program
 .command('upload')
 .argument(
