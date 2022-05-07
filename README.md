@@ -1,6 +1,8 @@
 # Introduction
-Klay-Gacha-Machine이란? 
-Klay-Gacha-Machine은 클레이튼 환경에서 NFT를 발행하기 위한 에코시스템을 지향하며, 클레이튼 기반의 NFT 발행을 원하시는 개발자와 발행인들을 위해 많은 개발도구들을 지원해 개발적 요소를 최소화하는 것을 목표로 합니다.
+Klay-Gacha-MachineV2이란? 
+Klay-Gacha-MachineV2는 클레이튼 환경에서 NFT를 발행하기 위한 에코시스템인 Klay-Gacha-machine의 Version 2이며, 클레이튼 기반의 NFT 발행을 원하시는 개발자와 발행인들을 위해 많은 개발도구들을 지원해 개발적 요소를 최소화하는 것을 목표로 합니다. 주요 변경 사항은 아래와 같습니다.
+
+### 기존 Klay-Gacha-Machine이 Klaytn 체인의 가스비 상승과 rate limit 적용으로 사용자분들께 수수료 부담(10000개 NFT당 업로드비용 1350Klay)이 컸기에 V2에서는 NFT 대상 작품 URI의 컨트랙트 업로드 과정을 제거하여 수수료 부담(컨트랙트 생성비용 약 2.4Klay만 지불)을 없앴습니다. 위 컨트랙트 업로드 과정이 없어졌기에 verify 과정도 생략되었습니다.
 
 # Official Menual
 곧 깃북 업데이트와 함께 추가기능 매뉴얼이 제공될 예정입니다.
