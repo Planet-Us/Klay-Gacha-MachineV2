@@ -7,6 +7,7 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import CACHE_DATA from '../Constant/info.json';
 
 let gachaAddress = ContractData.gachaAddress;
 if(process.env.REACT_APP_NETWORK == "baobab"){
@@ -163,47 +164,61 @@ export default function Mint(props) {
     let ret;    
     whiteListCheck(1);
     let gaslimit = cnt * 850000;
+    let uriMeta = "";
+    let mintCount = await contract.methods.getMintedCount(minterAddress).call();
+    
+    if((parseInt(mintCount) + parseInt(cnt)) > process.env.REACT_APP_NUMBER_OF_NFT){    
+      alert("최대발행갯수보다 많은 수의 발행을 시도하였습니다.")  ;
+      throw new Error(
+        'Mint number is more than max count. 최대발행갯수보다 많은 수의 발행을 시도하였습니다.',
+      );
+    }
+    for(let i=mintCount;i<(parseInt(mintCount) + parseInt(cnt));i++){
+      uriMeta = uriMeta + CACHE_DATA.items[i].link.toString();
+    }
     if(process.env.REACT_APP_WHITELIST == "true" && WLFlag != 1){
       alert("해당 주소는 민팅 대상 화이트리스트에 포함되어있지 않습니다.");
-    }else{
-      let limitRet = await maxPurchaseCheck(cnt);
-      if(limitRet && process.env.REACT_APP_WHITELIST == "true" && parseInt(process.env.REACT_APP_PURCHASE_LIMIT) > 0){   
-        ret = await caver.klay.sendTransaction({
-            type: 'SMART_CONTRACT_EXECUTION',
-            from: account,
-            to: gachaAddress,
-            value: caver.utils.toPeb((NFTPrice * cnt).toString(), 'KLAY'),
-            data: contract.methods.mint(mintCnt, process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account).encodeABI(),
-            gas: gaslimit
-          }).then(async (res)=>{
-            console.log(res);
-            let maxRet = await maxPurchaseCnt(cnt);
-          })
-          .catch((err) => {alert("Mint has failed.");});        
+    }else {
+      if(process.env.REACT_APP_WHITELIST == "true" && parseInt(process.env.REACT_APP_PURCHASE_LIMIT) > 0){   
+        let limitRet = await maxPurchaseCheck(cnt);
+        if(limitRet == true){
+          ret = await caver.klay.sendTransaction({
+              type: 'SMART_CONTRACT_EXECUTION',
+              from: account,
+              to: gachaAddress,
+              value: caver.utils.toPeb((NFTPrice * cnt).toString(), 'KLAY'),
+              data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account,uriMeta).encodeABI(),
+              gas: gaslimit
+            }).then(async (res)=>{
+              console.log(res);
+              let maxRet = await maxPurchaseCnt(cnt);
+            })
+            .catch((err) => {alert("Mint has failed.");});    
+        }    
       }else if(process.env.REACT_APP_WHITELIST == "true" && parseInt(process.env.REACT_APP_PURCHASE_LIMIT) == 0){ 
         ret = await caver.klay.sendTransaction({
             type: 'SMART_CONTRACT_EXECUTION',
             from: account,
             to: gachaAddress,
             value: caver.utils.toPeb((NFTPrice * cnt).toString(), 'KLAY'),
-            data: contract.methods.mint(mintCnt, process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account).encodeABI(),
+            data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account,uriMeta).encodeABI(),
             gas: gaslimit
           }).then(async (res)=>{
             console.log(res);
           })
           .catch((err) => {alert("Mint has failed.");});
-      }else if(process.env.REACT_APP_WHITELIST == "false"){
+      }else{
         ret = await caver.klay.sendTransaction({
             type: 'SMART_CONTRACT_EXECUTION',
             from: account,
             to: gachaAddress,
             value: caver.utils.toPeb((NFTPrice * cnt).toString(), 'KLAY'),
-            data: contract.methods.mint(mintCnt, process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account).encodeABI(),
+            data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account,uriMeta).encodeABI(),
             gas: gaslimit
           }).then((res)=>{console.log(res);})
           .catch((err) => {alert("Mint has failed.");});
       }
-        let mintCount = await contract.methods.getMintedCount(minterAddress).call();
+        mintCount = await contract.methods.getMintedCount(minterAddress).call();
         setMintCnt(mintCount);
       
         await wait(3000);

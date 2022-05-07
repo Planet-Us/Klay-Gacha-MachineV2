@@ -1,97 +1,32 @@
 {
-    "gachaAddressBaobab" : "0x7736D1Fb67885cd4a0e637c7e40bE60a34493d83",
+    "gachaAddressBaobab" : "0x4b1F81e83349a49A7ff1a7e1631199A3BBdF4Dc9",
     "gachaAddress" : "0xA3CeDE212d86D3E673F08641c4228c672aba4042",
     "gachaABI" : [
 		{
 			"constant": false,
 			"inputs": [
 				{
-					"name": "_maxCnt",
-					"type": "uint256"
-				},
-				{
-					"name": "cnt",
-					"type": "uint256"
-				},
-				{
-					"name": "_tokenURI",
+					"name": "_name",
 					"type": "string"
+				},
+				{
+					"name": "_symbol",
+					"type": "string"
+				},
+				{
+					"name": "_maxCount",
+					"type": "uint256"
 				}
 			],
-			"name": "upload",
+			"name": "mintNewToken",
 			"outputs": [
 				{
 					"name": "",
-					"type": "bool"
+					"type": "address"
 				}
 			],
 			"payable": false,
 			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [
-				{
-					"name": "minter",
-					"type": "address"
-				}
-			],
-			"name": "getOwnerAddr",
-			"outputs": [
-				{
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [
-				{
-					"name": "cnt",
-					"type": "uint256"
-				}
-			],
-			"name": "getTokenURI",
-			"outputs": [
-				{
-					"name": "",
-					"type": "string"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [
-				{
-					"name": "minterAddress",
-					"type": "address"
-				},
-				{
-					"name": "cnt",
-					"type": "uint256"
-				},
-				{
-					"name": "_tokenURI",
-					"type": "string"
-				}
-			],
-			"name": "getUploaded",
-			"outputs": [
-				{
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
 			"type": "function"
 		},
 		{
@@ -106,6 +41,32 @@
 			],
 			"payable": false,
 			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "minterAddress",
+					"type": "address"
+				},
+				{
+					"name": "mintNum",
+					"type": "uint256"
+				},
+				{
+					"name": "mintee",
+					"type": "address"
+				},
+				{
+					"name": "_tokenURIs",
+					"type": "string"
+				}
+			],
+			"name": "mint",
+			"outputs": [],
+			"payable": true,
+			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
@@ -144,127 +105,6 @@
 			],
 			"payable": false,
 			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": true,
-			"inputs": [
-				{
-					"name": "minter",
-					"type": "address"
-				},
-				{
-					"name": "tokenNum",
-					"type": "uint256"
-				}
-			],
-			"name": "getAppr",
-			"outputs": [
-				{
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"name": "_name",
-					"type": "string"
-				},
-				{
-					"name": "_symbol",
-					"type": "string"
-				}
-			],
-			"name": "mintNewToken",
-			"outputs": [
-				{
-					"name": "",
-					"type": "address"
-				}
-			],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"name": "_maxCnt",
-					"type": "uint256"
-				},
-				{
-					"name": "cnt",
-					"type": "uint256"
-				},
-				{
-					"name": "_tokenURI",
-					"type": "string"
-				},
-				{
-					"name": "uploadCnt",
-					"type": "uint256"
-				}
-			],
-			"name": "uploadBulk",
-			"outputs": [
-				{
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"name": "_tokenNum",
-					"type": "uint256"
-				},
-				{
-					"name": "minterAddress",
-					"type": "address"
-				}
-			],
-			"name": "burnToken",
-			"outputs": [],
-			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"constant": false,
-			"inputs": [
-				{
-					"name": "_tokenNum",
-					"type": "uint256"
-				},
-				{
-					"name": "minterAddress",
-					"type": "address"
-				},
-				{
-					"name": "mintNum",
-					"type": "uint256"
-				},
-				{
-					"name": "mintee",
-					"type": "address"
-				}
-			],
-			"name": "mint",
-			"outputs": [],
-			"payable": true,
-			"stateMutability": "payable",
 			"type": "function"
 		},
 		{
