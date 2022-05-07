@@ -1,7 +1,21 @@
 {
-    "gachaAddressBaobab" : "0x4b1F81e83349a49A7ff1a7e1631199A3BBdF4Dc9",
-    "gachaAddress" : "0xA3CeDE212d86D3E673F08641c4228c672aba4042",
+    "gachaAddressBaobab" : "0x2535974f244C4E2B58D91f5F901a494E0e385112",
+    "gachaAddress" : "0xc4DAC4125462729e90934130aA75a0CFB0F53E6C",
     "gachaABI" : [
+		{
+			"constant": false,
+			"inputs": [
+				{
+					"name": "_maxCount",
+					"type": "uint256"
+				}
+			],
+			"name": "updateMaxCnt",
+			"outputs": [],
+			"payable": false,
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
 		{
 			"constant": false,
 			"inputs": [
