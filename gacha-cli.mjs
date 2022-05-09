@@ -365,6 +365,65 @@ program
     }      
 });
 
+program
+.command('updateMaxNumber')
+.argument(
+  '<number>',
+  'Number of NFTs you want to mint',
+)
+.requiredOption(
+  '-n, --network <string>',
+  'JSON file with gacha machine settings',
+)
+.action(async (files,options, cmd) => {  
+    const maxCount = parseInt(cmd.args[0]);
+    console.log(options);
+    let rpcURL;
+    let ret;
+    let contract;
+    const configBuffer = fs.readFileSync('./config.json');
+    const configJson = configBuffer.toString();
+    const configData = JSON.parse(configJson);
+    let caver;
+    const cacheBuffer = fs.readFileSync(CACHE_PATH);
+    const cacheJSON = cacheBuffer.toString();
+    const cacheData = JSON.parse(cacheJSON);
+    
+    if(options.network == 'baobab'){
+      rpcURL = contractData.baobabRPCURL;
+      caver = await new Caver(rpcURL);
+      gachaAddress = cacheData.NFTContract;
+      contract = await caver.contract.create(contractData.NFTABI, gachaAddress);
+    }else if(options.network == 'mainnet'){
+        rpcURL = contractData.mainnetRPCURL;
+        caver = await new Caver(rpcURL);
+        gachaAddress = cacheData.NFTContract;
+        contract = await caver.contract.create(contractData.NFTABI, gachaAddress);
+    }else{
+      throw new Error(
+        'The Network name is wrong. 네트워크명은 baobab이나 mainnet으로 입력 바랍니다.',
+      );
+    }   
+
+    const minterAddress = configData.TreasuryAccount;
+    const minterPrivateKey = configData.PrivateKey;
+    ret = caver.klay.accounts.createWithAccountKey(minterAddress, minterPrivateKey);
+    ret = caver.klay.accounts.wallet.add(ret);
+    ret = caver.klay.accounts.wallet.getAccount(0);
+    ret = await caver.klay.sendTransaction({
+      type: 'SMART_CONTRACT_EXECUTION',
+      from: minterAddress,
+      to: gachaAddress,
+      data: contract.methods.updateMaxCnt(maxCount).encodeABI(),
+      gas: '1000000'
+    }).then(async () =>{
+      configData.NumberOfNFT = maxCount;      
+      fs.writeFileSync('./config.json', JSON.stringify(configData));   
+      console.log("Total mint number is now ", maxCount)
+    });
+
+    
+});
 
 async function wait(ms){
     return new Promise((resolve) => {

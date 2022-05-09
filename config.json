@@ -1,14 +1,14 @@
 {
-    "NumberOfNFT" : 12,
-    "TokenName" : "myNFT",
-    "TokenSymbol" : "MNT",
-    "TreasuryAccount": "",
-    "PrivateKey": "",
-    "pinataApiKey":"",
-    "pinataSecretApiKey": "",
-    "imageExtension" : "pnh",
-    "awsRegion" : "ap-northeast-2",
-    "awsBucketName": "",
-    "awsAccessKey" : "",
-    "awsSecretKey" : ""
+  "NumberOfNFT": 15,
+  "TokenName": "MyNFT",
+  "TokenSymbol": "MNT",
+  "TreasuryAccount": "",
+  "PrivateKey": "",
+  "pinataApiKey": "",
+  "pinataSecretApiKey": "",
+  "imageExtension": "png",
+  "awsRegion": "ap-northeast-2",
+  "awsBucketName": "",
+  "awsAccessKey": "",
+  "awsSecretKey": ""
 }
