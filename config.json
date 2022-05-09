@@ -1,12 +1,7 @@
 {
     "NumberOfNFT" : 12,
-<<<<<<< HEAD
     "TokenName" : "myNFT",
     "TokenSymbol" : "MNT",
-=======
-    "TokenName" : "MyNFTdada",
-    "TokenSymbol" : "LANN",
->>>>>>> bf2ef7ddeb5bfe5632d223965dedc53a6fbe1078
     "TreasuryAccount": "",
     "PrivateKey": "",
     "pinataApiKey":"",
