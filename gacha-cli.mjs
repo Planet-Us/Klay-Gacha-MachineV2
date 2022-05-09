@@ -195,19 +195,18 @@ program
       items.push({
         "id" : i,
         "link" : uriMeta,
-        "name" : metadataJson.name,
-        "onChain" : "false"
+        "name" : metadataJson.name
       });   
+      cacheData = {
+        "tokenName" : configData.TokenName,
+        "gachaMachineId" : minterAddress,
+        "items" : items,
+        "NFTContract" : nftContract
+        }    
+        
+      fs.writeFileSync(CACHE_PATH, JSON.stringify(cacheData));
     }
           
-    cacheData = {
-      "tokenName" : configData.TokenName,
-      "gachaMachineId" : minterAddress,
-      "items" : items,
-      "NFTContract" : nftContract
-      }    
-      
-    fs.writeFileSync(CACHE_PATH, JSON.stringify(cacheData));
     fs.writeFileSync("./src/Constant/info.json", JSON.stringify(cacheData));
 });
 
