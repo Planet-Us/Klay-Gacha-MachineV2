@@ -187,7 +187,7 @@ export default function Mint(props) {
               from: account,
               to: gachaAddress,
               value: caver.utils.toPeb((NFTPrice * cnt).toString(), 'KLAY'),
-              data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account,uriMeta).encodeABI(),
+              data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account).encodeABI(),
               gas: gaslimit
             }).then(async (res)=>{
               console.log(res);
@@ -201,7 +201,7 @@ export default function Mint(props) {
             from: account,
             to: gachaAddress,
             value: caver.utils.toPeb((NFTPrice * cnt).toString(), 'KLAY'),
-            data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account,uriMeta).encodeABI(),
+            data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account).encodeABI(),
             gas: gaslimit
           }).then(async (res)=>{
             console.log(res);
@@ -213,7 +213,7 @@ export default function Mint(props) {
             from: account,
             to: gachaAddress,
             value: caver.utils.toPeb((NFTPrice * cnt).toString(), 'KLAY'),
-            data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account,uriMeta).encodeABI(),
+            data: contract.methods.mint(process.env.REACT_APP_TREASURY_ACCOUNT,cnt, account).encodeABI(),
             gas: gaslimit
           }).then((res)=>{console.log(res);})
           .catch((err) => {alert("Mint has failed.");});

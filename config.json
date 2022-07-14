@@ -1,6 +1,6 @@
 {
-  "NumberOfNFT": 15,
-  "TokenName": "MyNFT",
+  "NumberOfNFT": 12,
+  "TokenName": "myNFT",
   "TokenSymbol": "MNT",
   "TreasuryAccount": "",
   "PrivateKey": "",
@@ -8,7 +8,7 @@
   "pinataSecretApiKey": "",
   "imageExtension": "png",
   "awsRegion": "ap-northeast-2",
-  "awsBucketName": "",
+  "awsBucketName": "gacha-test",
   "awsAccessKey": "",
   "awsSecretKey": ""
 }
